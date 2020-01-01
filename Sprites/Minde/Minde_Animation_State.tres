@@ -1,0 +1,78 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=21 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=1]
+animation = "FallStanding"
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "FallWalking"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "JumpStanding"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "JumpWalking"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "WalkAdvanced"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+advance_condition = "moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+advance_condition = "standing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+advance_condition = "air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+advance_condition = "air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+advance_condition = "rising"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+advance_condition = "falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+advance_condition = "moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+advance_condition = "standing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+advance_condition = "falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+advance_condition = "rising"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+advance_condition = "standing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+advance_condition = "moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+advance_condition = "ground"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+advance_condition = "ground"
+
+[resource]
+states/FallStanding/node = SubResource( 1 )
+states/FallStanding/position = Vector2( 85, -144 )
+states/FallWalking/node = SubResource( 2 )
+states/FallWalking/position = Vector2( 289, -144 )
+states/Idle/node = SubResource( 3 )
+states/Idle/position = Vector2( 85, 37 )
+states/JumpStanding/node = SubResource( 4 )
+states/JumpStanding/position = Vector2( 85, -253 )
+states/JumpWalking/node = SubResource( 5 )
+states/JumpWalking/position = Vector2( 289, -253 )
+states/Walk/node = SubResource( 6 )
+states/Walk/position = Vector2( 289, 38 )
+transitions = [ "Idle", "Walk", SubResource( 7 ), "Walk", "Idle", SubResource( 8 ), "Idle", "FallStanding", SubResource( 9 ), "Walk", "FallWalking", SubResource( 10 ), "FallStanding", "JumpStanding", SubResource( 11 ), "JumpStanding", "FallStanding", SubResource( 12 ), "JumpStanding", "JumpWalking", SubResource( 13 ), "JumpWalking", "JumpStanding", SubResource( 14 ), "JumpWalking", "FallWalking", SubResource( 15 ), "FallWalking", "JumpWalking", SubResource( 16 ), "FallWalking", "FallStanding", SubResource( 17 ), "FallStanding", "FallWalking", SubResource( 18 ), "FallStanding", "Idle", SubResource( 19 ), "FallWalking", "Walk", SubResource( 20 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -380, -281 )

@@ -1,0 +1,148 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/Jump.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/Land.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sprites/Minde/Minde.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Minde/Minde_Animation_State.tres" type="AnimationNodeStateMachine" id=5]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 5, -8, 5, 8, -5, 8, -5, -8 )
+
+[sub_resource type="Animation" id=16]
+resource_name = "FallStanding"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "FallWalking"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "JumpStanding"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 8 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "JumpWalking"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 10 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "WalkAdvanced"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=10]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+jump_speed = -3
+max_jump_frame_num = 4
+jump_sound = ExtResource( 2 )
+land_sound = ExtResource( 3 )
+
+[node name="PlayerSprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+vframes = 8
+hframes = 8
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FallStanding = SubResource( 16 )
+anims/FallWalking = SubResource( 17 )
+anims/Idle = SubResource( 3 )
+anims/JumpStanding = SubResource( 18 )
+anims/JumpWalking = SubResource( 19 )
+anims/WalkAdvanced = SubResource( 5 )
+
+[node name="PlayerAnims" type="AnimationTree" parent="."]
+tree_root = ExtResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 10 )
+parameters/conditions/air = false
+parameters/conditions/falling = false
+parameters/conditions/ground = false
+parameters/conditions/moving = false
+parameters/conditions/rising = false
+parameters/conditions/standing = false
